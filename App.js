@@ -1,34 +1,73 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  FlatList,
+} from "react-native";
+import { useState, useEffect } from "react";
+import Header from "./components/header";
 
-export default function App() {
-  // add some variables that change over time
-  const [counter, setCounter] = useState(0);
-
-  clickHandler = () => {
-    // define number tu show
-    let numberToShow = counter + 1;
-    if (numberToShow > 10) {
-      numberToShow = 0;
-    }
-    setCounter(numberToShow);
-  };
+const ListItem = (props) => {
+  // define style for list Item
+  const listItemStyles = StyleSheet.create({
+    name: {
+      color: "white",
+    },
+    age: {
+      color: "gray",
+    },
+    container: {
+      backgroundColor: "black",
+    },
+  });
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.boldText}>This is the counter: {counter}</Text>
-      </View>
-      <View style={styles.body}>
-        <Text>First text testing</Text>
-        <Text>Second text testing</Text>
-        <Text>Third text testing</Text>
-        <Text>Fourth text testing</Text>
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button title="Update value" onPress={clickHandler}></Button>
-      </View>
+    <View style={listItemStyles.container}>
+      <Text style={listItemStyles.name}>{props.name}</Text>
+      <Text style={listItemStyles.age}>Age: {props.age}</Text>
+    </View>
+  );
+};
+
+export default function App() {
+  const [name, setName] = useState("shaun");
+  const [age, setAge] = useState("30");
+
+  // create an array
+  var array = [
+    { Name: "Javier Garcia Vila", age: "28", key: "1" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "2" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "3" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "4" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "5" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "6" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "7" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "8" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "9" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "10" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "11" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "12" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "13" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "14" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "15" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "16" },
+    { Name: "Rigoberto Garcia Martinez", age: "61", key: "17" },
+  ];
+
+  // change the age property in the array using random numbers
+  array.forEach(
+    (item) => (item.age = Math.trunc(Math.random() * 60).toString())
+  );
+
+  // this is just some dummy data for my testing application
+  const [people, setPeople] = useState(array);
+
+  return (
+    <View>
+      <Header></Header>
     </View>
   );
 }
@@ -41,18 +80,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  header: {
-    backgroundColor: "pink",
-    padding: 20,
+  input: {
+    color: "white",
   },
-  boldText: {
+  clockText: {
+    textAlign: "center",
+    color: "white",
     fontWeight: "bold",
+    fontSize: 250,
   },
-  body: {
-    backgroundColor: "yellow",
-    padding: 20,
-  },
-  buttonContainer: {
-    marginTop: 20,
+  text: {
+    color: "white",
   },
 });
